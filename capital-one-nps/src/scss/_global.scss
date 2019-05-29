@@ -1,0 +1,9 @@
+@mixin box-shadow($property) {
+  -webkit-box-shadow: $property;
+  -moz-box-shadow: $property;
+  box-shadow: $property;
+}
+
+%default-shadow {
+  @include box-shadow(3px 3px 25px -5px rgba(170, 170, 170, 0.75));
+}
