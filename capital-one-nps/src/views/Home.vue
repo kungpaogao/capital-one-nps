@@ -7,7 +7,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SearchBar from "../components/SearchBar.vue";
-import axios from "axios";
 
 @Component({
   components: {
@@ -18,9 +17,16 @@ export default class Home extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-.home {
+#home {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  // background-image: url("https://www.nps.gov/npgallery/GetAsset/840EA389-1DD8-B71C-07B58F3C198B0387");
+  background-image: url("https://www.nps.gov/npgallery/GetAsset/2D26D223-1DD8-B71C-07C923F9B774BBB9");
+  overflow: hidden;
+  background-size: cover;
 }
 
 .search {
