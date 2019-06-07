@@ -9,10 +9,12 @@
     <div class="result-container">
       <!-- <h2 class="no-results" :class="{hidden: hasResults}"></h2> -->
       <div v-for="park in display" class="result" :key="park.id">
-        <h2>{{ park.fullName }}</h2>
-        <p class="park-states">{{ park.states }}</p>
+        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
+        <h3
+          class="park-desig"
+        >{{ (park.designation) ? park.designation : "Site" }} in {{ park.states.replace(/,/g, ", ") }}</h3>
         <p class="park-desc">{{ park.description }}</p>
-        <flat-button></flat-button>
+        <!-- <flat-button></flat-button> -->
       </div>
     </div>
   </div>
@@ -24,35 +26,7 @@ import SearchBar from "../components/SearchBar.vue";
 import FilterSearch from "../components/FilterSearch.vue";
 import FlatButton from "../components/FlatButton.vue";
 import axios from "axios";
-
-/** The type representing a park result's images. */
-type ResultImage = {
-  credit: string;
-  altText: string;
-  title: string;
-  id: string;
-  caption: string;
-  url: string;
-};
-
-/**
- * The type representing a park result returned when calling API.
- */
-type Result = {
-  states: string;
-  latLong: string;
-  description: string;
-  images: ResultImage[];
-  designation: string;
-  parkCode: string;
-  id: string;
-  directionsInfo: string;
-  directionsUrl: string;
-  fullName: string;
-  url: string;
-  weatherInfo: string;
-  name: string;
-};
+import { ResultImage, Result } from "../data/TypesData";
 
 @Component({
   components: {
@@ -63,6 +37,7 @@ type Result = {
 })
 export default class Search extends Vue {
   search: any = "";
+  stateSearch: any = "";
   results: Array<Result> = [];
   display: Array<Result> = [];
   filteredStates: string[] = [];
@@ -130,11 +105,12 @@ export default class Search extends Vue {
    * applyFilters() as necessary.
    */
   getSearch() {
-    console.log("getSearch: " + this.$route.query.park);
-
     // only search using the first term because of API limitations
     this.search = this.$route.query.park;
-    const searchTerm = this.search.split(" ")[0];
+    let searchTerm = "";
+    if (this.search) searchTerm = this.search.split(" ")[0];
+
+    this.stateSearch = this.$route.query.state;
 
     if (this.search) {
       axios
@@ -146,11 +122,29 @@ export default class Search extends Vue {
             this.applyFilters()
           )
         );
+    } else if (this.stateSearch) {
+      axios
+        .get(this.baseURL + "parks?stateCode=" + this.stateSearch + this.apiKey)
+        .then(
+          response => (
+            (this.results = response.data.data),
+            (this.hasResults = true),
+            this.applyFilters()
+          )
+        );
+      this.search = this.stateSearch;
     }
   }
 
   mounted() {
     this.getSearch();
+  }
+
+  goToPark(code: string) {
+    this.$router.push({
+      name: "park",
+      query: { code: code }
+    });
   }
 }
 </script>
@@ -187,9 +181,25 @@ $content-margin-left: 10%;
   // }
 }
 
-.park-states {
-  font-weight: bold;
+.park-link {
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.5s;
+
+  &:hover {
+    border-color: $vueDefaultText;
+    cursor: pointer;
+  }
 }
+
+.park-desig {
+  margin-top: 0;
+  // font-style: italic;
+}
+
+// .park-states {
+//   font-weight: bold;
+// }
 
 .hidden {
   display: none;

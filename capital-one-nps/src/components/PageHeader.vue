@@ -1,7 +1,9 @@
 <template>
   <ul class="nav-group">
     <li class="word-logo">
-      <img class="icon" src="../assets/logo.png">National Parks
+      <a href="/" class="link">
+        <img class="icon" src="../assets/logo.png">National Parks
+      </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/">Home</a>
@@ -51,6 +53,11 @@ export default class PageHeader extends Vue {
     height: 1.7rem;
     margin-right: 1rem;
   }
+
+  .link {
+    text-decoration: none;
+    color: #fff;
+  }
 }
 
 .nav-item {
@@ -65,7 +72,7 @@ export default class PageHeader extends Vue {
   text-decoration: none;
   text-align: center;
   line-height: 3rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   transition: color 0.3s;
 

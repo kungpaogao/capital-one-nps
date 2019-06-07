@@ -26,6 +26,18 @@ export default new Router({
       path: "/search",
       name: "search",
       component: () => import("./views/Search.vue")
+    },
+    {
+      path: "/park",
+      name: "park",
+      component: () => import("./views/Park.vue")
+      // beforeEnter(to, from, next) {
+      //   if (from.name == "search") {
+      //     next();
+      //   } else {
+      //     next("/search");
+      //   }
+      // }
     }
   ]
 });

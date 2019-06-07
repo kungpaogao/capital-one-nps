@@ -10,7 +10,7 @@
           v-model="selectedDesig"
           v-on:change="$emit('updated', selectedDesig)"
         >
-        {{ desig.name == "" ? "None" : desig.name }}
+        {{ desig.name == "" ? "None/Other" : desig.name }}
       </li>
     </ul>
   </div>
