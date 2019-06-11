@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import PageHeader from "./components/PageHeader.vue";
+// import "npmap-symbol-library/www/standalone/npmap-symbol-library-sprite.css";
 
 @Component({
   components: {
@@ -19,11 +20,13 @@ export default class App extends Vue {}
 
 <style lang="scss">
 @import "./scss/global.scss";
+@import url("../node_modules/npmap-symbol-library/www/standalone/npmap-symbol-library-sprite.css");
 
 html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 #app {
@@ -33,8 +36,8 @@ body {
   text-align: center;
   color: $vueDefaultText;
   overflow: auto;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  // width: 100vw;
   display: flex;
   flex-flow: column;
   margin: 0;

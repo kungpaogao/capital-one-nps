@@ -1,7 +1,5 @@
 <template>
   <div id="park" :class="{hidden: !loaded}">
-    <!-- <div class="background" :style="{'background-image': 'url(' + bgImageURL + ')'}"></div> -->
-
     <div class="header-section">
       <div class="title-block">
         <div v-for="park in parkData" :key="park.id" class="park-info">
@@ -9,6 +7,41 @@
         </div>
       </div>
       <div class="image-block" :style="{'background-image': 'url(' + bgImageURL + ')'}"></div>
+    </div>
+
+    <div class="quick-nav">
+      <ul class="nav-group">
+        <li class="nav-item">
+          <a class="nav-link" href="#images">Images</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#centers">Visitor Centers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#alerts">Alerts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#articles">Articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#news">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#events">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#camps">Campgrounds</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#lessons">Lesson Plans</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#people">People</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#places">Places</a>
+        </li>
+      </ul>
     </div>
 
     <div class="park-data">
@@ -19,7 +52,8 @@
 
       <divider></divider>
 
-      <h1 v-if="imageGallery.length > 0">Images</h1>
+      <h1 id="images">Images</h1>
+      <h3 v-if="imageGallery.length < 1">No images available.</h3>
       <div class="image-gallery">
         <div class="image-card" v-for="image in imageGallery" :key="image.id">
           <div class="image-contain">
@@ -31,46 +65,143 @@
 
       <divider></divider>
 
-      <h1 v-if="visitorcenters.length > 0">Visitor Centers</h1>
+      <h1 id="centers">
+        <i class="npmap-symbol-library-icon aed-black"></i>Visitor Centers
+      </h1>
+      <h3 v-if="visitorcenters.length < 1">No visitor centers available.</h3>
       <div class="visitor-center-info">
-        <div class="center" v-for="center in visitorcenters" :key="center.id">
-          <h3>{{ center.name }}</h3>
-          <p>{{ center.description }}</p>
+        <div class="info-contain" v-for="center in visitorcenters" :key="center.id">
+          <a class="info-link" :href="center.url">
+            <h3 class="info-head">{{ center.name }}</h3>
+          </a>
+          <p class="info-desc">{{ center.description }}</p>
         </div>
       </div>
 
-      <h1 v-if="campgrounds.length > 0">Campgrounds</h1>
-      <div class="campground-info">
-        <div class="camp" v-for="camp in campgrounds" :key="camp.id">
-          <h3>{{ camp.name }}</h3>
-          <p>{{ camp.description }}</p>
+      <divider></divider>
+
+      <h1 id="alerts">Alerts</h1>
+      <h3 v-if="alerts.length < 1">No alerts available.</h3>
+      <div class="alerts-info">
+        <div class="info-contain" v-for="alert in alerts" :key="alert.id">
+          <h4 class="info-pre">{{ alert.category }}</h4>
+          <a class="info-link" :href="alert.url">
+            <h3 class="info-head">{{ alert.title }}</h3>
+          </a>
+          <p class="info-desc">{{ alert.description }}</p>
         </div>
       </div>
 
-      <h1 v-if="newsreleases.length > 0">News Releases</h1>
+      <divider></divider>
+
+      <!-- articles -->
+      <h1 id="articles">Articles</h1>
+      <h3 v-if="articles.length < 1">No articles available.</h3>
+      <div class="articles-info">
+        <div
+          class="info-contain article"
+          v-for="article in articles"
+          :key="article.id"
+          :style="{'background-image': 'url(' + article.listingimage.url + ')'}"
+        >
+          <a :href="article.url">
+            <div class="background-shade"></div>
+            <div class="title-desc">
+              <h3 class="title">{{ article.title }}</h3>
+              <p>{{ article.listingdescription }}</p>
+            </div>
+          </a>
+        </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE ARTICLES"
+          v-on:click="seeMore('articles')"
+          v-if="articles.length > 0"
+        ></flat-button>
+      </div>
+
+      <divider></divider>
+
+      <h1 id="news">News</h1>
+      <h3 v-if="newsreleases.length < 1">No news releases available.</h3>
       <div class="news-info">
-        <div class="release" v-for="release in newsreleases" :key="release.id">
-          <h4 class="date">{{ release.releasedate }}</h4>
-          <h3>{{ release.title }}</h3>
-          <p>{{ release.abstract }}</p>
+        <div class="info-contain" v-for="release in newsreleases" :key="release.id">
+          <h4 class="info-pre">{{ release.releasedate.substring(0,10) }}</h4>
+          <a :href="release.url">
+            <h3 class="info-head">{{ release.title }}</h3>
+          </a>
+          <p class="info-desc">{{ release.abstract }}</p>
         </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE NEWS"
+          v-on:click="seeMore('newsreleases')"
+          v-if="newsreleases.length > 0"
+        ></flat-button>
       </div>
 
-      <h1 v-if="events.length > 0">Events</h1>
+      <divider></divider>
+
+      <h1 id="events">Events</h1>
+      <h3 v-if="events.length < 1">No events available.</h3>
       <div class="events-info">
         <div class="event" v-for="event in events" :key="event.id">
-          <h4 class="date">{{ event.datestart }} — {{ event.dateend }}</h4>
-          <h3>{{ event.title }}</h3>
-          <p>{{ event.description }}</p>
+          <div v-for="image in event.images" :key="image.imageid">
+            <img class="event-image" :src="'https://www.nps.gov' + image.url">
+          </div>
+          <h4 class="info-pre">{{ event.datestart }} — {{ event.dateend }}</h4>
+          <h3 class="info-head">{{ event.title }}</h3>
+          <div class="info-desc" v-html="event.description"></div>
         </div>
       </div>
 
-      <h1 v-if="alerts.length > 0">Alerts</h1>
-      <div class="alerts-info">
-        <div class="alert" v-for="alert in alerts" :key="alert.id">
-          <h4>{{ alert.category }}</h4>
-          <h3>{{ alert.title }}</h3>
-          <p>{{ alert.description }}</p>
+      <divider></divider>
+
+      <h1 id="camps">Campgrounds</h1>
+      <h3 v-if="campgrounds.length < 1">No campgrounds available.</h3>
+      <div class="campground-info">
+        <div class="camp" v-for="camp in campgrounds" :key="camp.id">
+          <h3 class="info-head">{{ camp.name }}</h3>
+          <p class="info-desc">{{ camp.description }}</p>
+        </div>
+      </div>
+
+      <!-- lessons -->
+      <divider></divider>
+
+      <h1 id="lessons">Lesson Plans</h1>
+      <h3 v-if="lessonplans.length < 1">No lesson plans available.</h3>
+      <div class="lesson-info">
+        <div class="lesson" v-for="lesson in lessonplans" :key="lesson.id">
+          <h4 class="info-pre">{{ lesson.subject }}</h4>
+          <a :href="lesson.url">
+            <h3 class="info-head">{{ lesson.title }}</h3>
+          </a>
+          <p class="info-desc">{{ lesson.questionobjective }}</p>
+        </div>
+      </div>
+
+      <!-- people -->
+      <divider></divider>
+
+      <h1 id="people">People</h1>
+      <h3 v-if="people.length < 1">No relevant people available.</h3>
+      <div class="people-info">
+        <div class="person" v-for="person in people" :key="person.id">
+          <h3 class="info-head">{{ person.name }}</h3>
+          <p class="info-desc">{{ person.description }}</p>
+        </div>
+      </div>
+
+      <!-- places -->
+      <divider></divider>
+
+      <h1 id="places">Places</h1>
+      <h3 v-if="places.length < 1">No relevant places available.</h3>
+      <div class="place-info">
+        <div class="place" v-for="place in places" :key="place.id">
+          <h3 class="info-head">{{ place.name }}</h3>
+          <p class="info-desc">{{ place.description }}</p>
         </div>
       </div>
     </div>
@@ -81,16 +212,19 @@
 import { Component, Vue } from "vue-property-decorator";
 import { ResultImage, Result, VisitorCenter } from "../data/TypesData";
 import Divider from "../components/Divider.vue";
+import FlatButton from "../components/FlatButton.vue";
 import axios from "axios";
 
 type Request = {
   req: string;
   resp: any;
+  limit: number;
 };
 
 @Component({
   components: {
-    Divider
+    Divider,
+    FlatButton
   }
 })
 export default class Park extends Vue {
@@ -113,21 +247,25 @@ export default class Park extends Vue {
   places: Array<any> = [];
 
   requests: Array<Request> = [
-    { req: "visitorcenters", resp: this.visitorcenters },
-    { req: "campgrounds", resp: this.campgrounds },
-    { req: "newsreleases", resp: this.newsreleases },
-    { req: "events", resp: this.events },
-    { req: "alerts", resp: this.alerts },
-    { req: "articles", resp: this.articles },
-    { req: "lessonplans", resp: this.lessonplans },
-    { req: "people", resp: this.people },
-    { req: "places", resp: this.places }
+    { req: "visitorcenters", resp: this.visitorcenters, limit: 50 },
+    { req: "campgrounds", resp: this.campgrounds, limit: 7 },
+    { req: "newsreleases", resp: this.newsreleases, limit: 7 },
+    { req: "events", resp: this.events, limit: 7 },
+    { req: "alerts", resp: this.alerts, limit: 50 },
+    { req: "articles", resp: this.articles, limit: 6 },
+    { req: "lessonplans", resp: this.lessonplans, limit: 7 },
+    { req: "people", resp: this.people, limit: 7 },
+    { req: "places", resp: this.places, limit: 7 }
   ];
 
   bgImageURL: string = "../assets/logo.png";
 
   loaded = false;
 
+  /**
+   * Gets basic park information and initializes main image as well as the
+   * image gallery.
+   */
   getParkData() {
     this.parkCode = this.$route.query.code;
     const request =
@@ -155,6 +293,16 @@ export default class Park extends Vue {
     return requests.find(request => request.req === reqKey)!.resp;
   }
 
+  /**
+   * Returns the Request object given a req "key" and Request array.
+   */
+  getRequestRecord(reqKey: string, requests: Array<Request>) {
+    return requests.find(request => request.req === reqKey)!;
+  }
+
+  /**
+   * Assigns class variables to their corresponding responses.
+   */
   setResponse() {
     this.visitorcenters = this.getResp("visitorcenters", this.requests);
     this.campgrounds = this.getResp("campgrounds", this.requests);
@@ -167,6 +315,35 @@ export default class Park extends Vue {
     this.places = this.getResp("places", this.requests);
   }
 
+  /**
+   * Requests more of a given request by increasing the request limit by 3.
+   * @example: seeMore('articles') will make a request for more 3 more articles
+   * than the current limit.
+   */
+  seeMore(req: string) {
+    const requestIndex = this.requests.indexOf(
+      this.getRequestRecord(req, this.requests)
+    );
+    this.requests[requestIndex].limit += 3;
+    const request = this.requests[requestIndex];
+    axios
+      .get(
+        this.baseURL +
+          request.req +
+          "?parkCode=" +
+          this.parkCode +
+          "&limit=" +
+          request.limit +
+          this.apiKey
+      )
+      .then(
+        response => ((request.resp = response.data.data), this.setResponse())
+      );
+  }
+
+  /**
+   * Makes a API request for each of the Requests in this.requests.
+   */
   getRequests() {
     this.requests.map(request =>
       axios
@@ -175,6 +352,8 @@ export default class Park extends Vue {
             request.req +
             "?parkCode=" +
             this.parkCode +
+            "&limit=" +
+            request.limit +
             this.apiKey
         )
         .then(
@@ -183,6 +362,9 @@ export default class Park extends Vue {
     );
   }
 
+  /**
+   * Initializes requests on page load.
+   */
   mounted() {
     this.getParkData();
     this.getRequests();
@@ -193,9 +375,32 @@ export default class Park extends Vue {
 <style lang="scss" scoped>
 @import "../scss/global.scss";
 
-#park {
-  // flex-grow: 1;
-  text-align: center;
+.quick-nav {
+  margin: 0 auto;
+  width: 75%;
+  text-align: left;
+}
+
+.nav-group {
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-item {
+  display: inline-block;
+  margin: 1rem 3rem 0 0;
+  font-size: 1.2rem;
+}
+
+.nav-link {
+  font-weight: bold;
+  text-decoration: none;
+  color: $colorAccentPrimary;
+  transition: 0.3s;
+
+  &:hover {
+    color: $colorAccentDark;
+  }
 }
 
 .header-section {
@@ -253,23 +458,18 @@ export default class Park extends Vue {
   text-align: left;
 }
 
-// .visitor-center-info,
-// .image-gallery,
-// .campground-info {
-//   margin-top: 4rem;
-// }
-
 .image-gallery {
   display: flex;
   flex-wrap: wrap;
 }
 
 .image-card {
-  flex-grow: 0.25;
   display: inline-block;
   margin: 0 2rem 2rem 0;
+  width: calc(30% - 1rem);
 
   .image-contain {
+    margin: 0;
     // width: 24rem;
     // height: 13.5rem;
     overflow: hidden;
@@ -277,10 +477,10 @@ export default class Park extends Vue {
   }
 
   .image {
-    width: 100%;
-    position: relative;
-    top: 100%;
-    margin-top: -200%;
+    border: none;
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   .image-title {
@@ -289,11 +489,81 @@ export default class Park extends Vue {
   }
 }
 
+.info-contain {
+  margin-bottom: 2rem;
+}
+
+.articles-info {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-evenly;
+}
+
+.article {
+  position: relative;
+  background-size: 100%;
+  background-position: center;
+  height: 21rem;
+  margin: 0 2rem 2rem 0;
+  width: calc(31% - 1rem);
+  transition: background-size 0.7s;
+
+  &:hover {
+    background-size: 120%;
+  }
+
+  .background-shade,
+  .title-desc {
+    position: absolute;
+  }
+
+  .background-shade {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .title-desc {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 2;
+    color: #fff;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:first-child {
+    width: 100%;
+    height: 23rem;
+
+    .title {
+      font-size: 2.1rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
 .event {
   border: 1px solid #777;
 }
 
-.date {
+.event-image {
+  width: 100%;
+}
+
+.info-pre {
+  text-transform: uppercase;
   margin-bottom: 0;
+}
+
+.info-head {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.info-desc {
+  margin-top: 0.25rem;
 }
 </style>

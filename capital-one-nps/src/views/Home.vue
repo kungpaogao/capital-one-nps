@@ -1,6 +1,14 @@
 <template>
   <div id="home">
     <search-bar class="search"></search-bar>
+    <a
+      class="image-credit"
+      href="https://www.nps.gov/media/photo/view.htm?id=2D26D223-1DD8-B71C-07C923F9B774BBB9"
+    >
+      <h3>
+        <b>IMAGE</b> Denali National Park and Preserve, Fall
+      </h3>
+    </a>
   </div>
 </template>
 
@@ -29,6 +37,14 @@ export default class Home extends Vue {}
 
 .search {
   margin: 10% auto;
+}
+
+.image-credit {
+  font-size: 0.75rem;
+  position: absolute;
+  left: 2rem;
+  bottom: 0.8rem;
+  color: #fff;
 }
 </style>
 

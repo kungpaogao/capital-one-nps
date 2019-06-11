@@ -17,7 +17,7 @@ export default class FlatButton extends Vue {
 @import "../scss/global.scss";
 
 .flat-button-container {
-  text-align: right;
+  text-align: inherit;
 }
 
 .flat-button {

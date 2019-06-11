@@ -2,7 +2,8 @@
   <ul class="nav-group">
     <li class="word-logo">
       <a href="/" class="link">
-        <img class="icon" src="../assets/logo.png">National Parks
+        <!-- <img class="icon" src="../assets/logo.png"> -->
+        National Parks
       </a>
     </li>
     <li class="nav-item">
@@ -68,7 +69,7 @@ export default class PageHeader extends Vue {
 .nav-link {
   padding: 0 1rem;
   display: block;
-  color: #ccc;
+  color: #ccc !important;
   text-decoration: none;
   text-align: center;
   line-height: 3rem;
@@ -78,7 +79,8 @@ export default class PageHeader extends Vue {
 
   &:hover {
     // background-color: gray;
-    color: #fff;
+    color: #fff !important;
+    text-decoration: none;
   }
 }
 </style>

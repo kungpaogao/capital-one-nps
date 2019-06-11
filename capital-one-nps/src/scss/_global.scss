@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+// @import "./npmap-symbols.scss";
+// @import "~npmap-symbol-library/www/standalone/npmap-symbol-library-sprite";
 @import "./variables.scss";
 
 @mixin box-shadow($property) {
@@ -27,6 +29,19 @@
 
   &:hover {
     background: #eee;
+  }
+}
+
+a {
+  color: $colorAccentPrimary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: $colorAccentDark;
   }
 }
 
