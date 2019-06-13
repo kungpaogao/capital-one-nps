@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+// @import "./npmap-symbols.scss";
+// @import "~npmap-symbol-library/www/standalone/npmap-symbol-library-sprite";
+@import "./variables.scss";
+
+@mixin box-shadow($property) {
+  -webkit-box-shadow: $property;
+  -moz-box-shadow: $property;
+  box-shadow: $property;
+}
+
+%default-shadow {
+  @include box-shadow(3px 3px 25px -5px rgba(170, 170, 170, 0.75));
+}
+
+%default-shadow-lower {
+  @include box-shadow(3px 3px 25px -12px rgba(170, 170, 170, 0.75));
+}
+
+%flat-button {
+  border: none;
+  background: #fff;
+  font-size: 1rem;
+  border-radius: 3px;
+  color: $colorAccentPrimary;
+  padding: 0.5rem 0.5rem;
+  font-weight: bold;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #eee;
+  }
+}
+
+a {
+  color: $colorAccentPrimary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: $colorAccentDark;
+  }
+}
+
+.hidden {
+  display: none;
+}
