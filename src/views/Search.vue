@@ -1,10 +1,6 @@
 <template>
   <div class="search-page">
-    <search-bar
-      class="search-bar"
-      :search-text="search"
-      v-on:search="getSearch()"
-    ></search-bar>
+    <search-bar class="search-bar" :search-text="search" v-on:search="getSearch()"></search-bar>
     <filter-search
       v-on:state-apply="(filteredStates = $event), applyFilters()"
       v-on:desig-apply="(filteredDesig = $event), applyFilters()"
@@ -15,9 +11,7 @@
     <div class="result-container">
       <!-- <h2 class="no-results" :class="{hidden: hasResults}"></h2> -->
       <div v-for="park in display" class="result" :key="park.id">
-        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">
-          {{ park.fullName }}
-        </h2>
+        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
         <h3 class="park-desig">
           {{ park.designation ? park.designation : "Site" }} in
           {{ park.states.replace(/,/g, ", ") }}
@@ -64,7 +58,6 @@ export default class Search extends Vue {
     // console.log(this.filteredStates);
     const filterStates = this.filteredStates.toString();
     const filterDesig = this.filteredDesig.toString();
-    const searchTerm = this.search.split(" ")[0];
 
     if (filterDesig && filterStates) {
       console.log("both filters active");

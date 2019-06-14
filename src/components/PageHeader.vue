@@ -7,13 +7,13 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/">Home</a>
+      <router-link class="nav-link" to="/">Home</router-link>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="search">Search</a>
+      <router-link class="nav-link" to="/search">Search</router-link>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="about">About</a>
+      <router-link class="nav-link" to="/about">About</router-link>
     </li>
   </ul>
 </template>
