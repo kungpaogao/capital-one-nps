@@ -4,39 +4,63 @@
       <button
         class="filter-button"
         v-on:click="filterStates()"
-        :class="{selected: filterStatesVisible || filterStatesActive}"
-      >States {{ (filteredStatesCount) ? "-" : "" }} {{ filteredStatesCount }}</button>
+        :class="{ selected: filterStatesVisible || filterStatesActive }"
+      >
+        States {{ filteredStatesCount ? "-" : "" }} {{ filteredStatesCount }}
+      </button>
       <button
         class="filter-button"
         v-on:click="filterDesig()"
-        :class="{selected: filterDesigVisible || filterDesigActive}"
-      >Designation {{ (filteredDesigCount) ? "-" : "" }} {{ filteredDesigCount }}</button>
+        :class="{ selected: filterDesigVisible || filterDesigActive }"
+      >
+        Designation {{ filteredDesigCount ? "-" : "" }} {{ filteredDesigCount }}
+      </button>
       <button
         class="filter-button"
         v-on:click="filterClear()"
-        :class="{selected: filterClearVisible}"
-      >Clear</button>
+        :class="{ selected: filterClearVisible }"
+      >
+        Clear
+      </button>
     </div>
-    <div class="filter-container state-filter" :class="{hidden: !filterStatesVisible}">
+    <div
+      class="filter-container state-filter"
+      :class="{ hidden: !filterStatesVisible }"
+    >
       <div class="filter">
         <state-select
           :clear-all="clearState"
-          v-on:updated="filteredStates = $event, clearNow = false"
+          v-on:updated="(filteredStates = $event), (clearNow = false)"
         ></state-select>
       </div>
-      <flat-button v-on:click="applyStateFilter()" button-text="APPLY"></flat-button>
+      <flat-button
+        v-on:click="applyStateFilter()"
+        button-text="APPLY"
+      ></flat-button>
     </div>
-    <div class="filter-container desig-filter" :class="{hidden: !filterDesigVisible}">
+    <div
+      class="filter-container desig-filter"
+      :class="{ hidden: !filterDesigVisible }"
+    >
       <div class="filter">
         <desig-select
           :clear-all="clearDesig"
-          v-on:updated="filteredDesig = $event, clearNow = false"
+          v-on:updated="(filteredDesig = $event), (clearNow = false)"
         ></desig-select>
       </div>
-      <flat-button v-on:click="applyDesigFilter()" button-text="APPLY"></flat-button>
+      <flat-button
+        v-on:click="applyDesigFilter()"
+        button-text="APPLY"
+      ></flat-button>
     </div>
-    <div class="filter-container clear-filter" :class="{hidden: !filterClearVisible}">
-      <flat-button v-on:click="applyClearFilter()" button-text="CLEAR ALL"></flat-button>
+    <div
+      class="filter-container clear-filter"
+      :class="{ hidden: !filterClearVisible }"
+    >
+      <flat-button
+        v-on:click="applyClearFilter()"
+        button-text="CLEAR ALL"
+      ></flat-button>
     </div>
   </div>
 </template>

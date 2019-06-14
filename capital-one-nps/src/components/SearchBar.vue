@@ -7,13 +7,18 @@
       :placeholder="searchText"
       v-model="search"
       v-on:keyup.enter="goToSearch(), $emit('search')"
-    >
+    />
     <button class="search-button" v-on:click="goToSearch(), $emit('search')">
       <i class="material-icons">search</i>
     </button>
 
     <datalist id="states">
-      <option v-for="state in statesData" :key="state.abbr" :value="state.abbr">{{state.name}}</option>
+      <option
+        v-for="state in statesData"
+        :key="state.abbr"
+        :value="state.abbr"
+        >{{ state.name }}</option
+      >
     </datalist>
   </div>
 </template>

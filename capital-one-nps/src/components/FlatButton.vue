@@ -1,6 +1,8 @@
 <template>
   <div class="flat-button-container">
-    <button class="flat-button" v-on:click="$emit('click')">{{ buttonText }}</button>
+    <button class="flat-button" v-on:click="$emit('click')">
+      {{ buttonText }}
+    </button>
   </div>
 </template>
 

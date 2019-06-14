@@ -1,7 +1,11 @@
 <template>
   <div class="desig-select">
-    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">CHECK ALL</button>
-    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">CLEAR</button>
+    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">
+      CHECK ALL
+    </button>
+    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">
+      CLEAR
+    </button>
     <ul class="desig-list">
       <li v-for="desig in desigData" :key="desig.abbr">
         <input
@@ -9,7 +13,7 @@
           :value="desig.name"
           v-model="selectedDesig"
           v-on:change="$emit('updated', selectedDesig)"
-        >
+        />
         {{ desig.name == "" ? "None/Other" : desig.name }}
       </li>
     </ul>

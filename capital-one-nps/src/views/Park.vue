@@ -1,12 +1,15 @@
 <template>
-  <div id="park" :class="{hidden: !loaded}">
+  <div id="park" :class="{ hidden: !loaded }">
     <div class="header-section">
       <div class="title-block">
         <div v-for="park in parkData" :key="park.id" class="park-info">
           <h1 class="park-name">{{ park.fullName }}</h1>
         </div>
       </div>
-      <div class="image-block" :style="{'background-image': 'url(' + bgImageURL + ')'}"></div>
+      <div
+        class="image-block"
+        :style="{ 'background-image': 'url(' + bgImageURL + ')' }"
+      ></div>
     </div>
 
     <div class="quick-nav">
@@ -46,7 +49,10 @@
 
     <div class="park-data">
       <div v-for="park in parkData" :key="park.id" class="park-info">
-        <h3>{{ (park.designation) ? park.designation : "Site" }} in {{ park.states.replace(/,/g, ", ") }}</h3>
+        <h3>
+          {{ park.designation ? park.designation : "Site" }} in
+          {{ park.states.replace(/,/g, ", ") }}
+        </h3>
         <p class="park-desc">{{ park.description }}</p>
       </div>
 
@@ -57,7 +63,7 @@
       <div class="image-gallery">
         <div class="image-card" v-for="image in imageGallery" :key="image.id">
           <div class="image-contain">
-            <img class="image" :src="image.url">
+            <img class="image" :src="image.url" />
           </div>
           <p class="image-title">{{ image.title }}</p>
         </div>
@@ -70,7 +76,11 @@
       </h1>
       <h3 v-if="visitorcenters.length < 1">No visitor centers available.</h3>
       <div class="visitor-center-info">
-        <div class="info-contain" v-for="center in visitorcenters" :key="center.id">
+        <div
+          class="info-contain"
+          v-for="center in visitorcenters"
+          :key="center.id"
+        >
           <a class="info-link" :href="center.url">
             <h3 class="info-head">{{ center.name }}</h3>
           </a>
@@ -102,7 +112,9 @@
           class="info-contain article"
           v-for="article in articles"
           :key="article.id"
-          :style="{'background-image': 'url(' + article.listingimage.url + ')'}"
+          :style="{
+            'background-image': 'url(' + article.listingimage.url + ')'
+          }"
         >
           <a :href="article.url">
             <div class="background-shade"></div>
@@ -125,8 +137,12 @@
       <h1 id="news">News</h1>
       <h3 v-if="newsreleases.length < 1">No news releases available.</h3>
       <div class="news-info">
-        <div class="info-contain" v-for="release in newsreleases" :key="release.id">
-          <h4 class="info-pre">{{ release.releasedate.substring(0,10) }}</h4>
+        <div
+          class="info-contain"
+          v-for="release in newsreleases"
+          :key="release.id"
+        >
+          <h4 class="info-pre">{{ release.releasedate.substring(0, 10) }}</h4>
           <a :href="release.url">
             <h3 class="info-head">{{ release.title }}</h3>
           </a>
@@ -147,7 +163,7 @@
       <div class="events-info">
         <div class="event" v-for="event in events" :key="event.id">
           <div v-for="image in event.images" :key="image.imageid">
-            <img class="event-image" :src="'https://www.nps.gov' + image.url">
+            <img class="event-image" :src="'https://www.nps.gov' + image.url" />
           </div>
           <h4 class="info-pre">{{ event.datestart }} — {{ event.dateend }}</h4>
           <h3 class="info-head">{{ event.title }}</h3>

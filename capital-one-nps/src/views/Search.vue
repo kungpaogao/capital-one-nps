@@ -1,18 +1,27 @@
 <template>
   <div class="search-page">
-    <search-bar class="search-bar" :search-text="search" v-on:search="getSearch()"></search-bar>
+    <search-bar
+      class="search-bar"
+      :search-text="search"
+      v-on:search="getSearch()"
+    ></search-bar>
     <filter-search
-      v-on:state-apply="filteredStates = $event, applyFilters()"
-      v-on:desig-apply="filteredDesig = $event, applyFilters()"
-      v-on:clear-apply="filteredStates = [], filteredDesig = [], applyFilters()"
+      v-on:state-apply="(filteredStates = $event), applyFilters()"
+      v-on:desig-apply="(filteredDesig = $event), applyFilters()"
+      v-on:clear-apply="
+        (filteredStates = []), (filteredDesig = []), applyFilters()
+      "
     ></filter-search>
     <div class="result-container">
       <!-- <h2 class="no-results" :class="{hidden: hasResults}"></h2> -->
       <div v-for="park in display" class="result" :key="park.id">
-        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
-        <h3
-          class="park-desig"
-        >{{ (park.designation) ? park.designation : "Site" }} in {{ park.states.replace(/,/g, ", ") }}</h3>
+        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">
+          {{ park.fullName }}
+        </h2>
+        <h3 class="park-desig">
+          {{ park.designation ? park.designation : "Site" }} in
+          {{ park.states.replace(/,/g, ", ") }}
+        </h3>
         <p class="park-desc">{{ park.description }}</p>
         <!-- <flat-button></flat-button> -->
       </div>
