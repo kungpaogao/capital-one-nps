@@ -43,6 +43,11 @@ a {
   &:visited {
     color: $colorAccentDark;
   }
+
+  &.hidden-link {
+    color: $vueDefaultText !important;
+    text-decoration: none !important;
+  }
 }
 
 .hidden {

@@ -5,7 +5,9 @@
       class="image-credit"
       href="https://www.nps.gov/media/photo/view.htm?id=2D26D223-1DD8-B71C-07C923F9B774BBB9"
     >
-      <h3><b>IMAGE</b> Denali National Park and Preserve, Fall</h3>
+      <h3>
+        <b>IMAGE</b> Denali National Park and Preserve, Fall
+      </h3>
     </a>
   </div>
 </template>
@@ -28,7 +30,7 @@ export default class Home extends Vue {}
   margin: 0;
   padding: 0;
   // background-image: url("https://www.nps.gov/npgallery/GetAsset/840EA389-1DD8-B71C-07B58F3C198B0387");
-  background-image: url("https://www.nps.gov/npgallery/GetAsset/2D26D223-1DD8-B71C-07C923F9B774BBB9");
+  background-image: url("../assets/denali.jpg");
   overflow: hidden;
   background-size: cover;
 }

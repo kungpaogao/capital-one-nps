@@ -21,6 +21,7 @@
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.3",
+    "vue-scrollto": "^2.15.0",
     "vue-server-renderer": "^2.6.10"
   },
   "devDependencies": {

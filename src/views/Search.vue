@@ -55,21 +55,17 @@ export default class Search extends Vue {
    * through an API call, while designation filtering is done locally.
    */
   applyFilters() {
-    // console.log(this.filteredStates);
     const filterStates = this.filteredStates.toString();
     const filterDesig = this.filteredDesig.toString();
 
     if (filterDesig && filterStates) {
-      console.log("both filters active");
       this.display = this.intersect(
         this.results.filter(result => this.isDesig(result)),
         this.results.filter(result => this.isState(result))
       );
     } else if (filterDesig) {
-      console.log("desig filter active");
       this.display = this.results.filter(result => this.isDesig(result));
     } else if (filterStates) {
-      console.log("state filter active");
       this.display = this.results.filter(result => this.isState(result));
     } else {
       this.display = this.results;
@@ -88,7 +84,6 @@ export default class Search extends Vue {
    * filtered designations.
    */
   isDesig(result: Result) {
-    console.log("EMPTY STRING TEST" + this.filteredDesig.includes(""));
     return this.filteredDesig.includes(result.designation);
   }
 

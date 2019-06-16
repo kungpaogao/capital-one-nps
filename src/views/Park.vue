@@ -6,10 +6,7 @@
           <h1 class="park-name">{{ park.fullName }}</h1>
         </div>
       </div>
-      <div
-        class="image-block"
-        :style="{ 'background-image': 'url(' + bgImageURL + ')' }"
-      ></div>
+      <div class="image-block" :style="{ 'background-image': 'url(' + bgImageURL + ')' }"></div>
     </div>
 
     <div class="quick-nav">
@@ -63,7 +60,7 @@
       <div class="image-gallery">
         <div class="image-card" v-for="image in imageGallery" :key="image.id">
           <div class="image-contain">
-            <img class="image" :src="image.url" />
+            <img class="image" :src="image.url">
           </div>
           <p class="image-title">{{ image.title }}</p>
         </div>
@@ -76,11 +73,7 @@
       </h1>
       <h3 v-if="visitorcenters.length < 1">No visitor centers available.</h3>
       <div class="visitor-center-info">
-        <div
-          class="info-contain"
-          v-for="center in visitorcenters"
-          :key="center.id"
-        >
+        <div class="info-contain" v-for="center in visitorcenters" :key="center.id">
           <a class="info-link" :href="center.url">
             <h3 class="info-head">{{ center.name }}</h3>
           </a>
@@ -127,7 +120,7 @@
         <flat-button
           class="see-more"
           button-text="SEE MORE ARTICLES"
-          v-on:click="seeMore('articles')"
+          @click="seeMore('articles')"
           v-if="articles.length > 0"
         ></flat-button>
       </div>
@@ -137,11 +130,7 @@
       <h1 id="news">News</h1>
       <h3 v-if="newsreleases.length < 1">No news releases available.</h3>
       <div class="news-info">
-        <div
-          class="info-contain"
-          v-for="release in newsreleases"
-          :key="release.id"
-        >
+        <div class="info-contain" v-for="release in newsreleases" :key="release.id">
           <h4 class="info-pre">{{ release.releasedate.substring(0, 10) }}</h4>
           <a :href="release.url">
             <h3 class="info-head">{{ release.title }}</h3>
@@ -151,7 +140,7 @@
         <flat-button
           class="see-more"
           button-text="SEE MORE NEWS"
-          v-on:click="seeMore('newsreleases')"
+          @click="seeMore('newsreleases')"
           v-if="newsreleases.length > 0"
         ></flat-button>
       </div>
@@ -162,12 +151,15 @@
       <h3 v-if="events.length < 1">No events available.</h3>
       <div class="events-info">
         <div class="event" v-for="event in events" :key="event.id">
-          <div v-for="image in event.images" :key="image.imageid">
-            <img class="event-image" :src="'https://www.nps.gov' + image.url" />
-          </div>
+          <!-- <div v-for="image in event.images" :key="image.imageid">
+            <img class="event-image" :src="'https://www.nps.gov' + image.url">
+          </div>-->
           <h4 class="info-pre">{{ event.datestart }} — {{ event.dateend }}</h4>
-          <h3 class="info-head">{{ event.title }}</h3>
-          <div class="info-desc" v-html="event.description"></div>
+          <a :href="event.infourl" v-if="event.infourl">
+            <h3 class="info-head">{{ event.title }}</h3>
+          </a>
+          <h3 class="info-head" v-else>{{ event.title }}</h3>
+          <div class="info-desc html" v-html="event.description"></div>
         </div>
       </div>
 
@@ -176,8 +168,10 @@
       <h1 id="camps">Campgrounds</h1>
       <h3 v-if="campgrounds.length < 1">No campgrounds available.</h3>
       <div class="campground-info">
-        <div class="camp" v-for="camp in campgrounds" :key="camp.id">
-          <h3 class="info-head">{{ camp.name }}</h3>
+        <div class="camp info-contain" v-for="camp in campgrounds" :key="camp.id">
+          <a :href="camp.directionsUrl">
+            <h3 class="info-head">{{ camp.name }}</h3>
+          </a>
           <p class="info-desc">{{ camp.description }}</p>
         </div>
       </div>
@@ -204,8 +198,11 @@
       <h3 v-if="people.length < 1">No relevant people available.</h3>
       <div class="people-info">
         <div class="person" v-for="person in people" :key="person.id">
-          <h3 class="info-head">{{ person.name }}</h3>
-          <p class="info-desc">{{ person.description }}</p>
+          <a class="hidden-link" :href="person.url">
+            <img class="person-pic" :src="person.listingimage.url">
+            <h3 class="info-head">{{ person.title }}</h3>
+            <p class="info-desc">{{ person.listingdescription }}</p>
+          </a>
         </div>
       </div>
 
@@ -216,8 +213,11 @@
       <h3 v-if="places.length < 1">No relevant places available.</h3>
       <div class="place-info">
         <div class="place" v-for="place in places" :key="place.id">
-          <h3 class="info-head">{{ place.name }}</h3>
-          <p class="info-desc">{{ place.description }}</p>
+          <a class="hidden-link" :href="place.url">
+            <img class="place-pic" :src="place.listingimage.url">
+            <h3 class="info-head">{{ place.title }}</h3>
+            <p class="info-desc">{{ place.listingdescription }}</p>
+          </a>
         </div>
       </div>
     </div>
@@ -227,9 +227,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { ResultImage, Result, VisitorCenter } from "../data/TypesData";
+import axios from "axios";
 import Divider from "../components/Divider.vue";
 import FlatButton from "../components/FlatButton.vue";
-import axios from "axios";
 
 type Request = {
   req: string;
@@ -546,8 +546,8 @@ export default class Park extends Vue {
     padding: 1rem 2rem;
     z-index: 2;
     color: #fff;
-    bottom: 0;
-    left: 0;
+    height: 21rem;
+    overflow: auto;
   }
 
   &:first-child {
@@ -561,9 +561,9 @@ export default class Park extends Vue {
   }
 }
 
-.event {
-  border: 1px solid #777;
-}
+// .event {
+//   border: 1px solid #777;
+// }
 
 .event-image {
   width: 100%;
@@ -581,5 +581,49 @@ export default class Park extends Vue {
 
 .info-desc {
   margin-top: 0.25rem;
+
+  &.html {
+    background-color: #eee;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.people-info,
+.place-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.person,
+.place {
+  box-sizing: border-box;
+  margin: 0 2rem 2rem 0;
+  width: calc(31% - 1rem);
+  background-color: #fff;
+  border-radius: 7px;
+  transition: 0.3s;
+  @extend %default-shadow-lower;
+
+  &:hover {
+    @extend %default-shadow;
+  }
+
+  .info-head {
+    padding: 1rem 2rem 0;
+    margin-bottom: 0.45rem;
+  }
+
+  .info-desc {
+    padding: 0 2rem 1rem;
+  }
+}
+
+.person-pic,
+.place-pic {
+  border-radius: 7px 7px 0 0;
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
 }
 </style>
