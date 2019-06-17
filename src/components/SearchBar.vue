@@ -7,18 +7,14 @@
       :placeholder="searchText"
       v-model="search"
       v-on:keyup.enter="goToSearch(), $emit('search')"
-    />
+      v-focus
+    >
     <button class="search-button" v-on:click="goToSearch(), $emit('search')">
       <i class="material-icons">search</i>
     </button>
 
     <datalist id="states">
-      <option
-        v-for="state in statesData"
-        :key="state.abbr"
-        :value="state.abbr"
-        >{{ state.name }}</option
-      >
+      <option v-for="state in statesData" :key="state.abbr" :value="state.abbr">{{ state.name }}</option>
     </datalist>
   </div>
 </template>
@@ -29,7 +25,7 @@ import { StatesData } from "../data/StatesData";
 
 @Component
 export default class SearchBar extends Vue {
-  @Prop({ default: "Search the National Parks" }) searchText!: string;
+  @Prop({ default: "" }) searchText!: string;
   statesData = StatesData;
   statesAbbr = this.statesData.map(state => state.abbr);
   statesName = this.statesData.map(state => state.name);
@@ -100,6 +96,14 @@ export default class SearchBar extends Vue {
     background: #ccc;
     transition: background 0.3s;
   }
+
+  @media (max-width: 768px) {
+    width: 75%;
+  }
+
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 }
 
 .search-input {
@@ -107,9 +111,17 @@ export default class SearchBar extends Vue {
   height: 100%;
   width: 90%;
   font-size: 1.3rem;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   border: none;
   border-radius: 7px;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  @media (max-width: 576px) {
+    width: 75%;
+  }
 }
 
 .search-button {
@@ -122,6 +134,14 @@ export default class SearchBar extends Vue {
   background: #eee;
   border: none;
   border-radius: 0 5px 5px 0;
+
+  @media (max-width: 768px) {
+    width: 20%;
+  }
+
+  @media (max-width: 576px) {
+    width: 25%;
+  }
 }
 
 .material-icons {

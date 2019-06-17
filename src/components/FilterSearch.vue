@@ -1,66 +1,48 @@
 <template>
   <div class="filter-search">
     <div class="filter-button-row">
-      <button
-        class="filter-button"
-        v-on:click="filterStates()"
-        :class="{ selected: filterStatesVisible || filterStatesActive }"
-      >
-        States {{ filteredStatesCount ? "-" : "" }} {{ filteredStatesCount }}
-      </button>
-      <button
-        class="filter-button"
-        v-on:click="filterDesig()"
-        :class="{ selected: filterDesigVisible || filterDesigActive }"
-      >
-        Designation {{ filteredDesigCount ? "-" : "" }} {{ filteredDesigCount }}
-      </button>
-      <button
-        class="filter-button"
-        v-on:click="filterClear()"
-        :class="{ selected: filterClearVisible }"
-      >
-        Clear
-      </button>
-    </div>
-    <div
-      class="filter-container state-filter"
-      :class="{ hidden: !filterStatesVisible }"
-    >
-      <div class="filter">
-        <state-select
-          :clear-all="clearState"
-          v-on:updated="(filteredStates = $event), (clearNow = false)"
-        ></state-select>
+      <div class="filter-contain">
+        <button
+          class="filter-button"
+          @click="filterStates()"
+          :class="{ selected: filterStatesVisible || filterStatesActive }"
+        >States {{ filteredStatesCount ? "-" : "" }} {{ filteredStatesCount }}</button>
+        <div class="filter-dialog state-filter" :class="{ hidden: !filterStatesVisible }">
+          <div class="filter">
+            <state-select
+              :clear-all="clearState"
+              @updated="(filteredStates = $event), (clearNow = false)"
+            ></state-select>
+          </div>
+          <flat-button class="apply" @click="applyStateFilter()" button-text="APPLY"></flat-button>
+        </div>
       </div>
-      <flat-button
-        v-on:click="applyStateFilter()"
-        button-text="APPLY"
-      ></flat-button>
-    </div>
-    <div
-      class="filter-container desig-filter"
-      :class="{ hidden: !filterDesigVisible }"
-    >
-      <div class="filter">
-        <desig-select
-          :clear-all="clearDesig"
-          v-on:updated="(filteredDesig = $event), (clearNow = false)"
-        ></desig-select>
+      <div class="filter-contain">
+        <button
+          class="filter-button"
+          @click="filterDesig()"
+          :class="{ selected: filterDesigVisible || filterDesigActive }"
+        >Designation {{ filteredDesigCount ? "-" : "" }} {{ filteredDesigCount }}</button>
+        <div class="filter-dialog desig-filter" :class="{ hidden: !filterDesigVisible }">
+          <div class="filter">
+            <desig-select
+              :clear-all="clearDesig"
+              @updated="(filteredDesig = $event), (clearNow = false)"
+            ></desig-select>
+          </div>
+          <flat-button class="apply" @click="applyDesigFilter()" button-text="APPLY"></flat-button>
+        </div>
       </div>
-      <flat-button
-        v-on:click="applyDesigFilter()"
-        button-text="APPLY"
-      ></flat-button>
-    </div>
-    <div
-      class="filter-container clear-filter"
-      :class="{ hidden: !filterClearVisible }"
-    >
-      <flat-button
-        v-on:click="applyClearFilter()"
-        button-text="CLEAR ALL"
-      ></flat-button>
+      <div class="filter-contain">
+        <button
+          class="filter-button"
+          @click="filterClear()"
+          :class="{ selected: filterClearVisible }"
+        >Clear</button>
+        <div class="filter-dialog clear-filter" :class="{ hidden: !filterClearVisible }">
+          <flat-button class="apply" @click="applyClearFilter()" button-text="CLEAR ALL"></flat-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -102,6 +84,7 @@ export default class FilterSearch extends Vue {
     this.filterDesigVisible = false;
     this.filterClearVisible = false;
     this.filterStatesVisible = !this.filterStatesVisible;
+    this.$emit("dialog", this.filterStatesVisible);
   }
 
   /**
@@ -111,6 +94,7 @@ export default class FilterSearch extends Vue {
     this.filterStatesVisible = false;
     this.filterClearVisible = false;
     this.filterDesigVisible = !this.filterDesigVisible;
+    this.$emit("dialog", this.filterDesigVisible);
   }
 
   /**
@@ -120,6 +104,7 @@ export default class FilterSearch extends Vue {
     this.filterStatesVisible = false;
     this.filterDesigVisible = false;
     this.filterClearVisible = !this.filterClearVisible;
+    this.$emit("dialog", this.filterClearVisible);
   }
 
   /**
@@ -173,6 +158,18 @@ export default class FilterSearch extends Vue {
   width: 55%;
   margin: 0 auto;
   text-align: left;
+
+  @media (max-width: 768px) {
+    width: 75%;
+  }
+
+  @media (max-width: 576px) {
+    width: 90%;
+  }
+}
+
+.filter-contain {
+  display: inline-block;
 }
 
 .filter-button {
@@ -195,31 +192,33 @@ export default class FilterSearch extends Vue {
   }
 }
 
-.filter-container {
+.filter-dialog {
   background: #fff;
+  text-align: center;
   position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+  // top: 17rem;
+  margin: 0 0.5rem;
   z-index: 10;
   border-radius: 7px;
   border: 1px solid #eee;
-  padding: 0 2rem 1rem;
+  padding: 0 0 1rem;
   width: 35%;
   @extend %default-shadow;
 
-  &.state-filter {
-    margin: 0 23%;
-  }
-
-  &.desig-filter {
-    margin: 0 30%;
-  }
-
   &.clear-filter {
-    width: auto;
-    padding: 1rem 2rem;
-    margin: 0 37%;
+    width: 10rem;
+    padding: 1rem 0;
+  }
+
+  @media (max-width: 992px) {
+    width: 60%;
+  }
+
+  @media (max-width: 768px) {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 90%;
   }
 }
 
@@ -233,8 +232,7 @@ export default class FilterSearch extends Vue {
   display: none;
 }
 
-.clear-button {
-  float: left;
-  color: #000;
+.apply {
+  padding: 0 1rem;
 }
 </style>

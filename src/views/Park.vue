@@ -121,7 +121,7 @@
           class="see-more"
           button-text="SEE MORE ARTICLES"
           @click="seeMore('articles')"
-          v-if="articles.length > 0"
+          v-if="articles.length >= 6"
         ></flat-button>
       </div>
 
@@ -141,7 +141,7 @@
           class="see-more"
           button-text="SEE MORE NEWS"
           @click="seeMore('newsreleases')"
-          v-if="newsreleases.length > 0"
+          v-if="newsreleases.length >= 7"
         ></flat-button>
       </div>
 
@@ -161,6 +161,12 @@
           <h3 class="info-head" v-else>{{ event.title }}</h3>
           <div class="info-desc html" v-html="event.description"></div>
         </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE EVENTS"
+          @click="seeMore('events')"
+          v-if="events.length >= 7"
+        ></flat-button>
       </div>
 
       <divider></divider>
@@ -174,6 +180,12 @@
           </a>
           <p class="info-desc">{{ camp.description }}</p>
         </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE CAMPGROUNDS"
+          @click="seeMore('campgrounds')"
+          v-if="campgrounds.length >= 7"
+        ></flat-button>
       </div>
 
       <!-- lessons -->
@@ -189,6 +201,12 @@
           </a>
           <p class="info-desc">{{ lesson.questionobjective }}</p>
         </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE LESSONS"
+          @click="seeMore('lessonplans')"
+          v-if="lessonplans.length >= 7"
+        ></flat-button>
       </div>
 
       <!-- people -->
@@ -204,6 +222,12 @@
             <p class="info-desc">{{ person.listingdescription }}</p>
           </a>
         </div>
+        <flat-button
+          class="see-more"
+          button-text="SEE MORE PEOPLE"
+          @click="seeMore('people')"
+          v-if="people.length >= 7"
+        ></flat-button>
       </div>
 
       <!-- places -->
@@ -220,6 +244,12 @@
           </a>
         </div>
       </div>
+      <flat-button
+        class="see-more"
+        button-text="SEE MORE PLACES"
+        @click="seeMore('places')"
+        v-if="places.length > 7"
+      ></flat-button>
     </div>
   </div>
 </template>

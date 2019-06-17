@@ -1,17 +1,19 @@
 <template>
-  <div class="search-page">
-    <search-bar class="search-bar" :search-text="search" v-on:search="getSearch()"></search-bar>
+  <div :class="['search-page', {'no-scroll':dialogVisible}]">
+    <search-bar class="search-bar" :search-text="search" @search="getSearch()"></search-bar>
     <filter-search
-      v-on:state-apply="(filteredStates = $event), applyFilters()"
-      v-on:desig-apply="(filteredDesig = $event), applyFilters()"
-      v-on:clear-apply="
+      @state-apply="(filteredStates = $event), applyFilters()"
+      @desig-apply="(filteredDesig = $event), applyFilters()"
+      @clear-apply="
         (filteredStates = []), (filteredDesig = []), applyFilters()
       "
+      @dialog="(dialogVisible = $event)"
     ></filter-search>
     <div class="result-container">
+      <div v-if="dialogVisible" class="dialog-overlay"></div>
       <!-- <h2 class="no-results" :class="{hidden: hasResults}"></h2> -->
       <div v-for="park in display" class="result" :key="park.id">
-        <h2 class="park-link" v-on:click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
+        <h2 class="park-link" @click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
         <h3 class="park-desig">
           {{ park.designation ? park.designation : "Site" }} in
           {{ park.states.replace(/,/g, ", ") }}
@@ -46,6 +48,7 @@ export default class Search extends Vue {
   filteredStates: string[] = [];
   filteredDesig: string[] = [];
   hasResults = false;
+  dialogVisible = false;
 
   baseURL = process.env.VUE_APP_BASE_URL;
   apiKey = process.env.VUE_APP_API_KEY;
@@ -133,10 +136,16 @@ export default class Search extends Vue {
     }
   }
 
+  /**
+   * Gets search on page load.
+   */
   mounted() {
     this.getSearch();
   }
 
+  /**
+   * Navigates to park with given park code.
+   */
   goToPark(code: string) {
     this.$router.push({
       name: "park",
@@ -161,12 +170,13 @@ $content-margin-left: 10%;
 }
 
 .result {
+  box-sizing: border-box;
   display: inline-block;
   padding: 1rem 2rem;
   text-align: left;
   background: #fff;
   border: 1px solid #eee;
-  width: 50%;
+  width: 57%;
   margin-bottom: 1.5rem;
   border-radius: 7px;
   @extend %default-shadow-lower;
@@ -176,6 +186,13 @@ $content-margin-left: 10%;
   //   @extend %default-shadow;
   //   border: 1px solid #eee;
   // }
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 }
 
 .park-link {
@@ -186,6 +203,16 @@ $content-margin-left: 10%;
   &:hover {
     border-color: $vueDefaultText;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    // text-decoration: underline;
+    color: $colorAccentPrimary;
+  }
+
+  @media (max-width: 576px) {
+    // text-decoration: underline;
+    color: $colorAccentPrimary;
   }
 }
 
@@ -200,5 +227,17 @@ $content-margin-left: 10%;
 
 .hidden {
   display: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.dialog-overlay {
+  background-color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
 }
 </style>

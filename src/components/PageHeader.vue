@@ -34,15 +34,18 @@ export default class PageHeader extends Vue {
   @extend %default-shadow;
   background: #000;
   color: #fff;
-  text-align: right;
+  text-align: left;
   list-style-type: none;
   margin: 0;
   padding: 1rem;
   color: #fff;
   vertical-align: middle;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .word-logo {
+  flex-grow: 1;
   display: block;
   float: left;
   font-size: 1.7rem;
@@ -58,6 +61,11 @@ export default class PageHeader extends Vue {
   .link {
     text-decoration: none;
     color: #fff;
+  }
+
+  @media (max-width: 576px) {
+    margin: 0 1rem 0.5rem;
+    width: 100%;
   }
 }
 

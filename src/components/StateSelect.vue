@@ -1,11 +1,7 @@
 <template>
   <div class="state-select">
-    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">
-      CHECK ALL
-    </button>
-    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">
-      CLEAR
-    </button>
+    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">CHECK ALL</button>
+    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">CLEAR</button>
     <ul class="state-list">
       <li v-for="state in statesData" :key="state.abbr">
         <input
@@ -13,7 +9,7 @@
           :value="state.abbr"
           v-model="selectedStates"
           v-on:change="$emit('updated', selectedStates)"
-        />
+        >
         {{ state.name }}
       </li>
     </ul>
@@ -61,12 +57,22 @@ export default class StateSelect extends Vue {
 .state-select {
   background: none;
   text-align: left;
+  padding: 0 1rem;
 }
 
 .state-list {
+  margin-left: -1.5rem;
   list-style-type: none;
   text-align: left;
   column-count: 3;
+
+  @media (max-width: 768px) {
+    column-count: 2;
+  }
+
+  @media (max-width: 576px) {
+    column-count: 1;
+  }
 }
 
 .toggle-all {

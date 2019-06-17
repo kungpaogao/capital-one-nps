@@ -1,11 +1,7 @@
 <template>
   <div class="desig-select">
-    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">
-      CHECK ALL
-    </button>
-    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">
-      CLEAR
-    </button>
+    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">CHECK ALL</button>
+    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">CLEAR</button>
     <ul class="desig-list">
       <li v-for="desig in desigData" :key="desig.abbr">
         <input
@@ -13,7 +9,7 @@
           :value="desig.name"
           v-model="selectedDesig"
           v-on:change="$emit('updated', selectedDesig)"
-        />
+        >
         {{ desig.name == "" ? "None/Other" : desig.name }}
       </li>
     </ul>
@@ -29,6 +25,7 @@ export default class DesigSelect extends Vue {
   desigData = [
     { name: "National Park", abbr: "NP" },
     { name: "National Preserve", abbr: "NPRES" },
+    { name: "National Park & Preserve", abbr: "NPPRES" },
     { name: "National Reserve", abbr: "NRES" },
     { name: "National Recreation Area", abbr: "NRA" },
     { name: "National Battlefield", abbr: "NB" },
@@ -44,6 +41,7 @@ export default class DesigSelect extends Vue {
     { name: "National Trail", abbr: "NST" },
     { name: "National Historic Site", abbr: "NHS" },
     { name: "National Historical Park", abbr: "NHP" },
+    { name: "National Heritage Area", abbr: "NHA" },
     { name: "International Historic Site", abbr: "IHS" },
     { name: "", abbr: "NA" }
   ];
@@ -54,8 +52,6 @@ export default class DesigSelect extends Vue {
 
   @Watch("clearAll")
   onClearAllChanged() {
-    console.log("DESIG CLEAR ALL PROP");
-
     this.isCheckAll = false;
     this.selectedDesig = [];
     this.$emit("updated", this.selectedDesig);
@@ -81,12 +77,22 @@ export default class DesigSelect extends Vue {
 .desig-select {
   background: none;
   text-align: left;
+  padding: 0 1rem;
 }
 
 .desig-list {
+  margin-left: -1.5rem;
   list-style-type: none;
   text-align: left;
   column-count: 3;
+
+  @media (max-width: 768px) {
+    column-count: 2;
+  }
+
+  @media (max-width: 576px) {
+    column-count: 1;
+  }
 }
 
 .toggle-all {
