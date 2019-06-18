@@ -3,10 +3,16 @@
     <div class="header-section">
       <div class="title-block">
         <div v-for="park in parkData" :key="park.id" class="park-info">
+          <h3 class="park-coords">{{ park.latLong.replace(/lat:|long:/g,"") }}</h3>
           <h1 class="park-name">{{ park.fullName }}</h1>
         </div>
       </div>
       <div class="image-block" :style="{ 'background-image': 'url(' + bgImageURL + ')' }"></div>
+    </div>
+
+    <div v-for="park in parkData" :key="park.id" class="park-header">
+      <h3 class="park-coords">{{ park.latLong.replace(/lat:|long:/g,"") }}</h3>
+      <h1 class="park-name">{{ park.fullName }}</h1>
     </div>
 
     <div class="quick-nav">
@@ -420,11 +426,22 @@ export default class Park extends Vue {
 
 <style lang="scss" scoped>
 @import "../scss/global.scss";
+$contentWidthLarge: 75%;
+$contentWidthMedium: 85%;
+$contentWidthSmall: 90%;
 
 .quick-nav {
   margin: 0 auto;
-  width: 75%;
+  width: $contentWidthLarge;
   text-align: left;
+
+  @media (max-width: $mediumMedia) {
+    width: $contentWidthMedium;
+  }
+
+  @media (max-width: $extraSmallMedia) {
+    width: $contentWidthSmall;
+  }
 }
 
 .nav-group {
@@ -453,9 +470,22 @@ export default class Park extends Vue {
   box-sizing: border-box;
   padding: 1.25rem;
   width: 100%;
-  height: 35rem;
+  // height: 40rem;
+  height: 70vh;
   display: flex;
   flex-flow: row;
+
+  @media (max-width: $mediumMedia) {
+    height: 60vh;
+  }
+
+  @media (max-width: $smallMedia) {
+    padding: 0;
+    height: 55vh;
+  }
+
+  @media (max-width: $extraSmallMedia) {
+  }
 }
 
 .title-block {
@@ -468,10 +498,32 @@ export default class Park extends Vue {
   text-align: left;
 
   .park-info {
+    box-sizing: border-box;
     position: absolute;
-    top: 30%;
-    padding: 0 2.7rem;
+    padding: 10% 2.7rem;
+    width: 100%;
   }
+
+  @media (max-width: $mediumMedia) {
+    display: none;
+    margin: 0;
+  }
+}
+
+.image-block {
+  height: 100%;
+  flex-grow: 2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: $mediumMedia) {
+    width: 100%;
+  }
+}
+
+.park-coords {
+  font-weight: normal;
 }
 
 .park-name {
@@ -480,14 +532,25 @@ export default class Park extends Vue {
 
 .park-desc {
   width: 70%;
+
+  @media (max-width: $mediumMedia) {
+    width: 100%;
+  }
 }
 
-.image-block {
-  height: 100%;
-  flex-grow: 1;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+.park-header {
+  display: none;
+
+  @media (max-width: $mediumMedia) {
+    text-align: left;
+    margin: 0 auto;
+    width: $contentWidthMedium;
+    display: block;
+  }
+
+  @media (max-width: $extraSmallMedia) {
+    width: $contentWidthSmall;
+  }
 }
 
 .background {
@@ -499,9 +562,17 @@ export default class Park extends Vue {
 
 .park-data {
   margin: 5rem auto;
-  width: 75%;
-  padding: 0 3rem;
+  width: $contentWidthLarge;
+  // padding: 0 3rem;
   text-align: left;
+
+  @media (max-width: $mediumMedia) {
+    width: $contentWidthMedium;
+  }
+
+  @media (max-width: $extraSmallMedia) {
+    width: $contentWidthSmall;
+  }
 }
 
 .image-gallery {

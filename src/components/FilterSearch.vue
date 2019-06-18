@@ -159,11 +159,11 @@ export default class FilterSearch extends Vue {
   margin: 0 auto;
   text-align: left;
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     width: 75%;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
     width: 90%;
   }
 }
@@ -210,11 +210,11 @@ export default class FilterSearch extends Vue {
     padding: 1rem 0;
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: $mediumMedia) {
     width: 60%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     left: 0;
     right: 0;
     margin: 0 auto;

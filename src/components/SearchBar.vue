@@ -97,11 +97,11 @@ export default class SearchBar extends Vue {
     transition: background 0.3s;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     width: 75%;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
     width: 90%;
   }
 }
@@ -115,11 +115,11 @@ export default class SearchBar extends Vue {
   border: none;
   border-radius: 7px;
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     width: 80%;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
     width: 75%;
   }
 }
@@ -135,11 +135,11 @@ export default class SearchBar extends Vue {
   border: none;
   border-radius: 0 5px 5px 0;
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     width: 20%;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
     width: 25%;
   }
 }

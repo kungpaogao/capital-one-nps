@@ -1,10 +1,10 @@
 <template>
   <ul class="nav-group">
     <li class="word-logo">
-      <a href="/" class="link">
+      <router-link to="/" class="link">
         <!-- <img class="icon" src="../assets/logo.png"> -->
         National Parks
-      </a>
+      </router-link>
     </li>
     <li class="nav-item">
       <router-link class="nav-link" to="/">Home</router-link>
@@ -42,9 +42,15 @@ export default class PageHeader extends Vue {
   vertical-align: middle;
   display: flex;
   flex-wrap: wrap;
+  min-height: 3rem;
+
+  @media (max-width: $extraSmallMedia) {
+    min-height: 6rem;
+  }
 }
 
 .word-logo {
+  padding-left: 0.25rem;
   flex-grow: 1;
   display: block;
   float: left;

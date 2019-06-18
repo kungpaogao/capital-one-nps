@@ -86,11 +86,11 @@ export default class DesigSelect extends Vue {
   text-align: left;
   column-count: 3;
 
-  @media (max-width: 768px) {
+  @media (max-width: $smallMedia) {
     column-count: 2;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
     column-count: 1;
   }
 }

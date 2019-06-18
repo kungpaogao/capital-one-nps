@@ -167,6 +167,7 @@ $content-margin-left: 10%;
 .result-container {
   text-align: center;
   // margin-left: $content-margin-left;
+  overflow: hidden;
 }
 
 .result {
