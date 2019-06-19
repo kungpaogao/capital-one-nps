@@ -5,10 +5,10 @@ import Home from "./views/Home.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode:
-    process.env.NODE_ENV === "production" && process.env.HOST !== "firebase"
-      ? "hash"
-      : "history",
+  mode: "history",
+  // process.env.NODE_ENV === "production" && process.env.HOST !== "firebase"
+  //   ? "hash"
+  //   : "history",
   base: process.env.BASE_URL,
   routes: [
     {

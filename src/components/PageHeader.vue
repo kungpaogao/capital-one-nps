@@ -45,7 +45,8 @@ export default class PageHeader extends Vue {
   min-height: 3rem;
 
   @media (max-width: $extraSmallMedia) {
-    min-height: 6rem;
+    min-height: 7rem;
+    padding: 1rem 0;
   }
 }
 
@@ -69,7 +70,8 @@ export default class PageHeader extends Vue {
     color: #fff;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: $extraSmallMedia) {
+    padding-left: 0;
     margin: 0 1rem 0.5rem;
     width: 100%;
   }
