@@ -17,6 +17,10 @@ export default class Divider extends Vue {}
 .divider {
   margin: 5rem 0;
   width: 100%;
+
+  @media (max-width: $smallMedia) {
+    margin: 2.5rem 0;
+  }
 }
 
 .line {

@@ -165,7 +165,9 @@
             <h3 class="info-head">{{ event.title }}</h3>
           </a>
           <h3 class="info-head" v-else>{{ event.title }}</h3>
-          <div class="info-desc html" v-html="event.description"></div>
+          <div class="info-desc event">
+            <div class="html" v-html="event.description"></div>
+          </div>
         </div>
         <flat-button
           class="see-more"
@@ -428,7 +430,7 @@ export default class Park extends Vue {
 @import "../scss/global.scss";
 $contentWidthLarge: 75%;
 $contentWidthMedium: 85%;
-$contentWidthSmall: 90%;
+$contentWidthSmall: 92.5%;
 
 .quick-nav {
   margin: 0 auto;
@@ -541,9 +543,13 @@ $contentWidthSmall: 90%;
 .park-header {
   display: none;
 
+  .park-name {
+    font-size: 2.75rem;
+  }
+
   @media (max-width: $mediumMedia) {
     text-align: left;
-    margin: 0 auto;
+    margin: 2.5rem auto 0;
     width: $contentWidthMedium;
     display: block;
   }
@@ -585,13 +591,20 @@ $contentWidthSmall: 90%;
   margin: 0 2rem 2rem 0;
   width: calc(30% - 1rem);
 
-  .image-contain {
-    margin: 0;
-    // width: 24rem;
-    // height: 13.5rem;
-    overflow: hidden;
-    text-align: middle;
+  @media (max-width: $mediumMedia) {
+    width: calc(47% - 1rem);
   }
+
+  @media (max-width: $smallMedia) {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.image-contain {
+  margin: 0;
+  overflow: hidden;
+  text-align: middle;
 
   .image {
     border: none;
@@ -599,11 +612,11 @@ $contentWidthSmall: 90%;
     height: auto;
     display: block;
   }
+}
 
-  .image-title {
-    margin: 1rem 0 0;
-    font-weight: bold;
-  }
+.image-title {
+  margin: 1rem 0 0;
+  font-weight: bold;
 }
 
 .info-contain {
@@ -629,26 +642,13 @@ $contentWidthSmall: 90%;
     background-size: 120%;
   }
 
-  .background-shade,
-  .title-desc {
-    position: absolute;
+  @media (max-width: $mediumMedia) {
+    width: calc(47% - 1rem);
   }
 
-  .background-shade {
-    height: 100%;
+  @media (max-width: $smallMedia) {
     width: 100%;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.45);
-  }
-
-  .title-desc {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 1rem 2rem;
-    z-index: 2;
-    color: #fff;
-    height: 21rem;
-    overflow: auto;
+    margin-right: 0;
   }
 
   &:first-child {
@@ -658,13 +658,35 @@ $contentWidthSmall: 90%;
     .title {
       font-size: 2.1rem;
       margin-bottom: 0;
+
+      @media (max-width: $smallMedia) {
+        font-size: 1.17rem;
+      }
     }
   }
 }
 
-// .event {
-//   border: 1px solid #777;
-// }
+.background-shade,
+.title-desc {
+  position: absolute;
+}
+
+.background-shade {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.title-desc {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem 2rem;
+  z-index: 2;
+  color: #fff;
+  height: 21rem;
+  overflow: auto;
+}
 
 .event-image {
   width: 100%;
@@ -682,11 +704,20 @@ $contentWidthSmall: 90%;
 
 .info-desc {
   margin-top: 0.25rem;
+  overflow: auto;
+  margin-bottom: 2rem;
 
-  &.html {
+  &.event {
     background-color: #eee;
+  }
+
+  .html {
     padding: 1rem 2rem;
-    margin-bottom: 2rem;
+    max-width: 100vw;
+
+    @media (max-width: $smallMedia) {
+      padding: 0.5rem 1rem;
+    }
   }
 }
 
@@ -717,6 +748,15 @@ $contentWidthSmall: 90%;
 
   .info-desc {
     padding: 0 2rem 1rem;
+  }
+
+  @media (max-width: $mediumMedia) {
+    width: calc(47% - 1rem);
+  }
+
+  @media (max-width: $smallMedia) {
+    width: 100%;
+    margin-right: 0;
   }
 }
 
