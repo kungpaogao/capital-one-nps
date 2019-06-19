@@ -31,6 +31,8 @@ export default class About extends Vue {
   content: string = `
   # National Parks - Capital One
 
+[Source Code](https://github.com/kungpaogao/capital-one-nps/)
+
 Andrew Gao
 
 May–Jun 2019
