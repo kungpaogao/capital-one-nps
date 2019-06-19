@@ -1,3 +1,6 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/capital-one-nps/" : "/"
+  publicPath:
+    process.env.NODE_ENV === "production" && process.env.HOST !== "firebase"
+      ? "/capital-one-nps/"
+      : "/"
 };
