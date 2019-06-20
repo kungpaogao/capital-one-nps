@@ -1,7 +1,11 @@
 <template>
   <div class="state-select">
-    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">CHECK ALL</button>
-    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">CLEAR</button>
+    <button class="toggle-all" :hidden="isCheckAll" v-on:click="checkAll()">
+      CHECK ALL
+    </button>
+    <button class="toggle-all" :hidden="!isCheckAll" v-on:click="checkAll()">
+      CLEAR
+    </button>
     <ul class="state-list">
       <li v-for="state in statesData" :key="state.abbr">
         <input
@@ -9,7 +13,7 @@
           :value="state.abbr"
           v-model="selectedStates"
           v-on:change="$emit('updated', selectedStates)"
-        >
+        />
         {{ state.name }}
       </li>
     </ul>

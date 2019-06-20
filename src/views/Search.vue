@@ -1,19 +1,23 @@
 <template>
-  <div :class="['search-page', {'no-scroll':dialogVisible}]">
-    <search-bar class="search-bar" :search-text="search" @search="getSearch()"></search-bar>
+  <div :class="['search-page', { 'no-scroll': dialogVisible }]">
+    <search-bar
+      class="search-bar"
+      :search-text="search"
+      @search="getSearch()"
+    ></search-bar>
     <filter-search
       @state-apply="(filteredStates = $event), applyFilters()"
       @desig-apply="(filteredDesig = $event), applyFilters()"
-      @clear-apply="
-        (filteredStates = []), (filteredDesig = []), applyFilters()
-      "
-      @dialog="(dialogVisible = $event)"
+      @clear-apply="(filteredStates = []), (filteredDesig = []), applyFilters()"
+      @dialog="dialogVisible = $event"
     ></filter-search>
     <div class="result-container">
       <div v-if="dialogVisible" class="dialog-overlay"></div>
       <!-- <h2 class="no-results" :class="{hidden: hasResults}"></h2> -->
       <div v-for="park in display" class="result" :key="park.id">
-        <h2 class="park-link" @click="goToPark(park.parkCode)">{{ park.fullName }}</h2>
+        <h2 class="park-link" @click="goToPark(park.parkCode)">
+          {{ park.fullName }}
+        </h2>
         <h3 class="park-desig">
           {{ park.designation ? park.designation : "Site" }} in
           {{ park.states.replace(/,/g, ", ") }}

@@ -1,9 +1,8 @@
 <template>
   <div class="about">
-    <markdown-it-vue class="md-content" :content="content"/>
+    <markdown-it-vue class="md-content" :content="content" />
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 @import "../scss/global.scss";
@@ -14,7 +13,6 @@
   padding: 2rem;
 }
 </style>
-
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";

@@ -3,15 +3,20 @@
     <div class="header-section">
       <div class="title-block">
         <div v-for="park in parkData" :key="park.id" class="park-info">
-          <h3 class="park-coords">{{ park.latLong.replace(/lat:|long:/g,"") }}</h3>
+          <h3 class="park-coords">
+            {{ park.latLong.replace(/lat:|long:/g, "") }}
+          </h3>
           <h1 class="park-name">{{ park.fullName }}</h1>
         </div>
       </div>
-      <div class="image-block" :style="{ 'background-image': 'url(' + bgImageURL + ')' }"></div>
+      <div
+        class="image-block"
+        :style="{ 'background-image': 'url(' + bgImageURL + ')' }"
+      ></div>
     </div>
 
     <div v-for="park in parkData" :key="park.id" class="park-header">
-      <h3 class="park-coords">{{ park.latLong.replace(/lat:|long:/g,"") }}</h3>
+      <h3 class="park-coords">{{ park.latLong.replace(/lat:|long:/g, "") }}</h3>
       <h1 class="park-name">{{ park.fullName }}</h1>
     </div>
 
@@ -66,7 +71,7 @@
       <div class="image-gallery">
         <div class="image-card" v-for="image in imageGallery" :key="image.id">
           <div class="image-contain">
-            <img class="image" :src="image.url">
+            <img class="image" :src="image.url" />
           </div>
           <p class="image-title">{{ image.title }}</p>
         </div>
@@ -79,7 +84,11 @@
       </h1>
       <h3 v-if="visitorcenters.length < 1">No visitor centers available.</h3>
       <div class="visitor-center-info">
-        <div class="info-contain" v-for="center in visitorcenters" :key="center.id">
+        <div
+          class="info-contain"
+          v-for="center in visitorcenters"
+          :key="center.id"
+        >
           <a class="info-link" :href="center.url">
             <h3 class="info-head">{{ center.name }}</h3>
           </a>
@@ -127,7 +136,7 @@
           class="see-more"
           button-text="SEE MORE ARTICLES"
           @click="seeMore('articles')"
-          v-if="articles.length >= 6"
+          v-if="articles.length >= 7"
         ></flat-button>
       </div>
 
@@ -136,7 +145,11 @@
       <h1 id="news">News</h1>
       <h3 v-if="newsreleases.length < 1">No news releases available.</h3>
       <div class="news-info">
-        <div class="info-contain" v-for="release in newsreleases" :key="release.id">
+        <div
+          class="info-contain"
+          v-for="release in newsreleases"
+          :key="release.id"
+        >
           <h4 class="info-pre">{{ release.releasedate.substring(0, 10) }}</h4>
           <a :href="release.url">
             <h3 class="info-head">{{ release.title }}</h3>
@@ -182,7 +195,11 @@
       <h1 id="camps">Campgrounds</h1>
       <h3 v-if="campgrounds.length < 1">No campgrounds available.</h3>
       <div class="campground-info">
-        <div class="camp info-contain" v-for="camp in campgrounds" :key="camp.id">
+        <div
+          class="camp info-contain"
+          v-for="camp in campgrounds"
+          :key="camp.id"
+        >
           <a :href="camp.directionsUrl">
             <h3 class="info-head">{{ camp.name }}</h3>
           </a>
@@ -225,7 +242,7 @@
       <div class="people-info">
         <div class="person" v-for="person in people" :key="person.id">
           <a class="hidden-link" :href="person.url">
-            <img class="person-pic" :src="person.listingimage.url">
+            <img class="person-pic" :src="person.listingimage.url" />
             <h3 class="info-head">{{ person.title }}</h3>
             <p class="info-desc">{{ person.listingdescription }}</p>
           </a>
@@ -246,7 +263,7 @@
       <div class="place-info">
         <div class="place" v-for="place in places" :key="place.id">
           <a class="hidden-link" :href="place.url">
-            <img class="place-pic" :src="place.listingimage.url">
+            <img class="place-pic" :src="place.listingimage.url" />
             <h3 class="info-head">{{ place.title }}</h3>
             <p class="info-desc">{{ place.listingdescription }}</p>
           </a>
@@ -306,7 +323,7 @@ export default class Park extends Vue {
     { req: "newsreleases", resp: this.newsreleases, limit: 7 },
     { req: "events", resp: this.events, limit: 7 },
     { req: "alerts", resp: this.alerts, limit: 50 },
-    { req: "articles", resp: this.articles, limit: 6 },
+    { req: "articles", resp: this.articles, limit: 7 },
     { req: "lessonplans", resp: this.lessonplans, limit: 7 },
     { req: "people", resp: this.people, limit: 7 },
     { req: "places", resp: this.places, limit: 7 }

@@ -6,15 +6,24 @@
           class="filter-button"
           @click="filterStates()"
           :class="{ selected: filterStatesVisible || filterStatesActive }"
-        >States {{ filteredStatesCount ? "-" : "" }} {{ filteredStatesCount }}</button>
-        <div class="filter-dialog state-filter" :class="{ hidden: !filterStatesVisible }">
+        >
+          States {{ filteredStatesCount ? "-" : "" }} {{ filteredStatesCount }}
+        </button>
+        <div
+          class="filter-dialog state-filter"
+          :class="{ hidden: !filterStatesVisible }"
+        >
           <div class="filter">
             <state-select
               :clear-all="clearState"
               @updated="(filteredStates = $event), (clearNow = false)"
             ></state-select>
           </div>
-          <flat-button class="apply" @click="applyStateFilter()" button-text="APPLY"></flat-button>
+          <flat-button
+            class="apply"
+            @click="applyStateFilter()"
+            button-text="APPLY"
+          ></flat-button>
         </div>
       </div>
       <div class="filter-contain">
@@ -22,15 +31,25 @@
           class="filter-button"
           @click="filterDesig()"
           :class="{ selected: filterDesigVisible || filterDesigActive }"
-        >Designation {{ filteredDesigCount ? "-" : "" }} {{ filteredDesigCount }}</button>
-        <div class="filter-dialog desig-filter" :class="{ hidden: !filterDesigVisible }">
+        >
+          Designation {{ filteredDesigCount ? "-" : "" }}
+          {{ filteredDesigCount }}
+        </button>
+        <div
+          class="filter-dialog desig-filter"
+          :class="{ hidden: !filterDesigVisible }"
+        >
           <div class="filter">
             <desig-select
               :clear-all="clearDesig"
               @updated="(filteredDesig = $event), (clearNow = false)"
             ></desig-select>
           </div>
-          <flat-button class="apply" @click="applyDesigFilter()" button-text="APPLY"></flat-button>
+          <flat-button
+            class="apply"
+            @click="applyDesigFilter()"
+            button-text="APPLY"
+          ></flat-button>
         </div>
       </div>
       <div class="filter-contain">
@@ -38,9 +57,18 @@
           class="filter-button"
           @click="filterClear()"
           :class="{ selected: filterClearVisible }"
-        >Clear</button>
-        <div class="filter-dialog clear-filter" :class="{ hidden: !filterClearVisible }">
-          <flat-button class="apply" @click="applyClearFilter()" button-text="CLEAR ALL"></flat-button>
+        >
+          Clear
+        </button>
+        <div
+          class="filter-dialog clear-filter"
+          :class="{ hidden: !filterClearVisible }"
+        >
+          <flat-button
+            class="apply"
+            @click="applyClearFilter()"
+            button-text="CLEAR ALL"
+          ></flat-button>
         </div>
       </div>
     </div>
