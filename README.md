@@ -33,7 +33,8 @@ This website was written to complete Capital One's National Park Service (NPS) c
 5. API panic! - somewhere along the line, I was getting lots of CORS errors (turned out to be a privacy blocker issue)
 6. Testing deployment - GitHub pages + single-page apps = bad time
 7. Media queries - after seeing the website on my phone, I realized I needed to do this
-8. Writing this - what good is code if you can't explain it?
+8. Deployment - this time with Firebase hosting, which worked much better
+9. Writing this - what good is code if you can't explain it?
 
 ### Challenges
 
